@@ -1,12 +1,100 @@
 <ion-app>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-title>SIGN IN</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  
 
-    <ion-content fullscreen>
-      <form>
+    <ion-content ion-padding>
+      <ion-grid >
+        <ion-row class="mr-5">
+          <ion-col text-center>
+
+              <ion-text class="app-title" color="primary">Daur</ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="mr-3">
+         <ion-col>
+          <ion-segment [(ngModel)]="segment" color="secondary">
+    
+            <ion-segment-button value="register" >
+              Register
+            </ion-segment-button>
+            <ion-segment-button value="login">
+              Login
+            </ion-segment-button>
+        
+          </ion-segment>
+         </ion-col>
+        </ion-row>
+        <div [ngSwitch]="segment">
+          <ion-row class="mr-3 trans" *ngSwitchCase="'login'">
+            <ion-col>
+              <form>
+                  <ion-list>
+                      <ion-item>
+                        <ion-label position="stacked">Email</ion-label>
+                        <ion-input required type="text"></ion-input>
+                      </ion-item>
+            
+                      <ion-item>
+                        <ion-label position="stacked">Password</ion-label>
+                        <ion-input required type="password"></ion-input>
+                      </ion-item>
+                      
+                    </ion-list>
+                   
+              </form>
+            </ion-col>
+            
+          </ion-row>
+        
+          <ion-row class="mr-3 trans" *ngSwitchCase="'register'">
+            <ion-col>
+              <form>
+                  <ion-list>
+                      <ion-item>
+                        <ion-label position="stacked">Nama</ion-label>
+                        <ion-input required type="text"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label position="stacked">Universitas</ion-label>
+                        <ion-input required type="text"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label position="stacked">Email</ion-label>
+                        <ion-input required type="text"></ion-input>
+                      </ion-item>
+            
+                      <ion-item>
+                        <ion-label position="stacked">Password</ion-label>
+                        <ion-input required type="password"></ion-input>
+                      </ion-item>
+                      
+                    </ion-list>
+                   
+              </form>
+            </ion-col>
+          </ion-row>
+      
+      
+        </div>
+        <ion-row justify-content-center>
+          <ion-col size="10">
+              <ion-button expand="full" color="secondary" (click)="login()" *ngIf="segment === 'login'">Login
+                  <ion-ripple-effect></ion-ripple-effect>
+              </ion-button>
+              <ion-button expand="full" color="secondary" (click)="register()" *ngIf="segment === 'register'">Register
+                  <ion-ripple-effect></ion-ripple-effect>
+              </ion-button>
+          </ion-col>
+       
+        </ion-row>
+        
+      
+
+
+       
+        
+      </ion-grid>
+
+      <!-- <form>
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
           <ion-item>
             <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
@@ -23,7 +111,7 @@
         <div class="ion-padding">
           <ion-button expand="block" type="submit" class="ion-no-margin" routerLink="/home">Login</ion-button>
         </div>
-      </form>
+      </form> -->
     </ion-content>
 
   </ion-app>

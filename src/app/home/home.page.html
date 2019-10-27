@@ -1,20 +1,68 @@
-<ion-header translucent>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-menu-button menu="m1"></ion-menu-button>
-          </ion-buttons>
-      <ion-title>Home</ion-title>
-    </ion-toolbar>
-  </ion-header>,
-  <ion-content fullscreen>
-    <ion-card>
-      <img src="https://i0.wp.com/santrialim.com/wp-content/uploads/2018/02/go-green-recycle-reduce-reuse-eco-poster-concept-vector-creative-organic-illustration-rough-background-86195465-1.jpg?w=779&ssl=1" />
-      <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-      </ion-card-content>
-    </ion-card>
-  </ion-content>
+<!-- <ion-header color="secondary" no-border>
+    <ion-item color="secondary" list="none">
+       <ion-text class="title" color="light">Daur</ion-text>
+       <ion-item color="secondary" slot="end">
+           <ion-icon name="leaf" color="primary"></ion-icon>
+           <ion-label color="light">1600</ion-label>
+       </ion-item>
+       
+    </ion-item>
+   </ion-header> -->
+ 
+   <ion-content>
+      
+    <div class="bg-green">
+        <ion-item color="secondary-shade" lines="none">
+            <ion-item color="secondary-shade" slot="end" lines="none">
+                <ion-icon name="ios-leaf" color="light"></ion-icon>
+                <ion-label color="light" class="coin">1600</ion-label>
+            </ion-item>
+            
+         </ion-item>
+     <ion-grid>
+       <ion-row class="p-10 mr-3 card-100">
+         <ion-col>
+           <ion-text class="text-name bold">Brilyan Aro</ion-text><br>
+           <ion-text class="sub-text">Friday, 17 December 2019</ion-text>
+         </ion-col>
+       </ion-row>
+   
+     </ion-grid>
+    </div>
+ 
+    <ion-grid>
+       <ion-row justify-content-center>
+         <ion-col size="11">
+             <div class="card-float">
+               <ion-grid>
+                 <ion-row justify-content-center class="mt-20">
+                   <ion-col text-center><img class="w-50" src="../../assets/icon/user.svg" alt="">
+                    <ion-label>Profile</ion-label>
+                  </ion-col>
+                   <ion-col text-center><img class="w-50" src="../../assets/icon/leaf.svg" alt="">
+                    <ion-label>Redeem</ion-label>
+                  </ion-col>
+                   <ion-col text-center><img class="w-50" src="../../assets/icon/history.svg" alt="">
+                    <ion-label>History</ion-label>
+                  </ion-col>
+                   <ion-col text-center><img class="w-50" src="../../assets/icon/qr-code.svg" alt="">
+                    <ion-label>QRCode</ion-label>
+                  </ion-col>
+                 </ion-row>
+               </ion-grid>
+             </div>
+           </ion-col>
+         </ion-row>
+    </ion-grid>
+
+    <ion-grid padding>
+      <ion-row>
+        <ion-col>
+          <ion-text color="dark" class="bold head-text">
+            News
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+     
+   </ion-content>
