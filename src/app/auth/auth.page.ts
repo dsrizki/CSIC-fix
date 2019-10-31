@@ -21,11 +21,11 @@ export class AuthPage implements OnInit {
 
 
   register(){
-    this.router.navigate(['home'])
+    this.router.navigateByUrl("/home/tabs/tab1")
   }
 
   login(){
-    this.router.navigate(['home'])
+    this.router.navigateByUrl("/scan")
   }
 
 }

@@ -1,0 +1,37 @@
+<ion-header color="secondary-shade" no-border>
+    <ion-item color="secondary-shade" lines="none">
+       <ion-text class="title" color="secondary">Daur</ion-text>
+       <ion-item color="secondary-shade" slot="end" lines="none">
+          <!--  <ion-icon name="ios-leaf" color="secondary"></ion-icon> -->
+           <ion-label color="dark">Rizky - UMNKantin</ion-label>
+           <ion-icon name="md-more" (click)="presentActionSheet()"></ion-icon>
+       </ion-item>
+       
+    </ion-item>
+   </ion-header>
+
+<ion-content padding>
+
+  <form class="mt-30">
+    <ion-text color="primary" class="head-text bold">
+      Input Deposit
+    </ion-text>
+    <br>
+    <ion-label class="mt-20">UID: </ion-label>
+   <ion-item>
+
+      <ion-input placeholder="input user id here"></ion-input>
+      <ion-icon name="qr-scanner" slot="end"></ion-icon>
+   </ion-item> 
+    <ion-label>Weight: </ion-label>
+    <ion-item>
+
+        <ion-input placeholder="ex 150gr"></ion-input>
+    </ion-item>
+    <ion-button color="primary" class="mr-3" expand="full">Save</ion-button>
+  </form>
+ 
+  
+
+
+</ion-content>

@@ -1,5 +1,7 @@
 {
   "name": "CSIC",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

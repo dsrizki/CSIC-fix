@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePage implements OnInit {
 
+  segment = "history"
   constructor() { }
 
   ngOnInit() {

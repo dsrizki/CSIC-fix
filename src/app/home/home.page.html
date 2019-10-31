@@ -1,24 +1,26 @@
-<!-- <ion-header color="secondary" no-border>
-    <ion-item color="secondary" list="none">
-       <ion-text class="title" color="light">Daur</ion-text>
-       <ion-item color="secondary" slot="end">
-           <ion-icon name="leaf" color="primary"></ion-icon>
-           <ion-label color="light">1600</ion-label>
+<ion-header color="secondary-shade" no-border>
+    <ion-item color="secondary-shade" lines="none">
+       <ion-text class="title" color="secondary">Daur</ion-text>
+       <ion-item color="secondary-shade" slot="end" lines="none">
+           <ion-icon name="ios-leaf" color="secondary"></ion-icon>
+           <ion-label color="dark">1600</ion-label>
        </ion-item>
        
     </ion-item>
-   </ion-header> -->
+   </ion-header>
  
    <ion-content>
       
     <div class="bg-green">
-        <ion-item color="secondary-shade" lines="none">
+      <!--   <ion-item color="secondary-shade" lines="none">
+          <ion-item>
+              <ion-title slot="start" color="primary">Daur</ion-title></ion-item>
             <ion-item color="secondary-shade" slot="end" lines="none">
-                <ion-icon name="ios-leaf" color="light"></ion-icon>
-                <ion-label color="light" class="coin">1600</ion-label>
+                <ion-icon name="ios-leaf" color="secondary"></ion-icon>
+                <ion-label color="dark" class="coin">1600</ion-label>
             </ion-item>
             
-         </ion-item>
+         </ion-item> -->
      <ion-grid>
        <ion-row class="p-10 mr-3 card-100">
          <ion-col>
@@ -28,6 +30,7 @@
        </ion-row>
    
      </ion-grid>
+     
     </div>
  
     <ion-grid>
@@ -36,16 +39,16 @@
              <div class="card-float">
                <ion-grid>
                  <ion-row justify-content-center class="mt-20">
-                   <ion-col text-center><img class="w-50" src="../../assets/icon/user.svg" alt="">
+                   <ion-col text-center routerLink="/home/tabs/tab2"><img class="w-50" src="../../assets/icon/user.svg" alt="">
                     <ion-label>Profile</ion-label>
                   </ion-col>
-                   <ion-col text-center><img class="w-50" src="../../assets/icon/leaf.svg" alt="">
-                    <ion-label>Redeem</ion-label>
+                   <ion-col text-center routerLink="/home/tabs/tab3"><img class="w-50" src="../../assets/icon/leaf.svg" alt="">
+                    <ion-label>Rewards</ion-label>
                   </ion-col>
-                   <ion-col text-center><img class="w-50" src="../../assets/icon/history.svg" alt="">
+                   <ion-col text-center routerLink="/history"><img class="w-50" src="../../assets/icon/history.svg" alt="">
                     <ion-label>History</ion-label>
                   </ion-col>
-                   <ion-col text-center><img class="w-50" src="../../assets/icon/qr-code.svg" alt="">
+                   <ion-col text-center routerLink="/qrcode"><img class="w-50" src="../../assets/icon/qr-code.svg" alt="">
                     <ion-label>QRCode</ion-label>
                   </ion-col>
                  </ion-row>
@@ -63,6 +66,84 @@
           </ion-text>
         </ion-col>
       </ion-row>
+      <ion-list>
+          <ion-item-sliding>
+              <ion-item>
+                  <ion-thumbnail slot="start">
+                      <img src="../../assets/thumb.jpg">
+                    </ion-thumbnail>
+                <ion-label><strong>Sebuah berita ditulis disini</strong> 
+                  <br>  <br>
+                  <small>30 Nov 2019</small>
+                </ion-label>
+                
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          <ion-item-sliding>
+              <ion-item>
+                  <ion-thumbnail slot="start">
+                      <img src="../../assets/thumb.jpg">
+                    </ion-thumbnail>
+                <ion-label><strong>Sebuah berita ditulis disini</strong> 
+                  <br>  <br>
+                  <small>30 Nov 2019</small>
+                </ion-label>
+                
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          <ion-item-sliding>
+              <ion-item>
+                  <ion-thumbnail slot="start">
+                      <img src="../../assets/thumb.jpg">
+                    </ion-thumbnail>
+                <ion-label><strong>Sebuah berita ditulis disini</strong> 
+                  <br>  <br>
+                  <small>30 Nov 2019</small>
+                </ion-label>
+                
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          <ion-item-sliding>
+              <ion-item>
+                  <ion-thumbnail slot="start">
+                      <img src="../../assets/thumb.jpg">
+                    </ion-thumbnail>
+                <ion-label><strong>Sebuah berita ditulis disini</strong> 
+                  <br>  <br>
+                  <small>30 Nov 2019</small>
+                </ion-label>
+                
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          <ion-item-sliding>
+              <ion-item>
+                  <ion-thumbnail slot="start">
+                      <img src="../../assets/thumb.jpg">
+                    </ion-thumbnail>
+                <ion-label><strong>Sebuah berita ditulis disini</strong> 
+                  <br>  <br>
+                  <small>30 Nov 2019</small>
+                </ion-label>
+                
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+      </ion-list>
     </ion-grid>
+  
      
    </ion-content>
