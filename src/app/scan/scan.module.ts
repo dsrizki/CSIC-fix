@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ScanPage } from './scan.page';
 
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 const routes: Routes = [
   {
     path: '',
@@ -20,6 +21,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
+  ],
+  providers: [
+    QRScanner
   ],
   declarations: [ScanPage]
 })
