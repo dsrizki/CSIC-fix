@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/service/api.service';
 import { AngularFirestoreCollection } from 'angularfire2/firestore'
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -12,8 +14,9 @@ export class ProfilePage implements OnInit {
   curUser: any;
   user:any;
   fix;
+  encodedData
 
-  constructor(private api: ApiService) { 
+  constructor(private api: ApiService,public barcodeCtrl: BarcodeScanner) { 
     this.curUser = localStorage.getItem("curUser")
     console.log("curUser",this.curUser)
    
@@ -40,12 +43,22 @@ export class ProfilePage implements OnInit {
 
     
     console.log("useraa",this.user)
+    this.goToCreateCode()
    })
 
   // this.fix = this.user[0].email;
    console.log("fix",this.fix)
   
    
+  }
+
+  goToCreateCode() {
+    this.barcodeCtrl.encode(this.barcodeCtrl.Encode.TEXT_TYPE, this.curUser).then((encodedData) => {
+      console.log(encodedData);
+      this.encodedData = encodedData;
+    }, (err) => {
+      console.log('Error occured : ' + err);
+    });
   }
 
 }

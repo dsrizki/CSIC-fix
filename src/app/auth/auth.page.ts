@@ -58,6 +58,7 @@ export class AuthPage implements OnInit {
    
     console.log("email",this.fgRegister.value.email)
     
+
     try {
       var r = await this.fireAuth.auth.createUserWithEmailAndPassword(
         this.fgRegister.value.email,
@@ -68,6 +69,7 @@ export class AuthPage implements OnInit {
         this.segment = 'login';
         let uid = r.user.uid
         this.fgRegister.addControl('uid', new FormControl(uid,Validators.required))
+        this.fgRegister.addControl('points', new FormControl(0,Validators.required))
         let body = this.fgRegister.value
         console.log("body after append",body)
         this.api.create_user(body)

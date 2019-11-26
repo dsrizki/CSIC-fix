@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProfilePage } from './profile.page';
 
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 const routes: Routes = [
   {
     path: '',
@@ -20,6 +21,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
+  ], providers: [
+    BarcodeScanner,
   ],
   declarations: [ProfilePage]
 })
