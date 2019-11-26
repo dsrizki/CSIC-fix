@@ -43,7 +43,7 @@ export class ProfilePage implements OnInit {
 
     
     console.log("useraa",this.user)
-    this.goToCreateCode()
+   
    })
 
   // this.fix = this.user[0].email;
