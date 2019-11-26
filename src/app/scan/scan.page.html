@@ -1,4 +1,4 @@
-<ion-header color="secondary-shade" no-border>
+<ion-header color="light" no-border>
     <ion-item color="secondary-shade" lines="none">
        <ion-text class="title" color="secondary">Daur</ion-text>
        <ion-item color="secondary-shade" slot="end" lines="none">
@@ -30,8 +30,14 @@
     </ion-item>
     <ion-button color="primary" class="mr-3" expand="full">Save</ion-button>
   </form>
- 
-  
+  <div *ngIf="scannedData">
+    <p>
+      Scanned Code Text : <b>{{ scannedData["text"] }}</b>
+    </p>
+    <p>
+      Scanned Code Format : <b>{{ scannedData["format"] }}</b>
+    </p>
+  </div>
 
 
 </ion-content>

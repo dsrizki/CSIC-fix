@@ -18,12 +18,12 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col class="ion-text-center">
+        <ion-col class="ion-text-center" *ngFor="let a of user">
           <form class="ion-text-center">
-          <ion-text *ngIf="!edit" class="profile-name bold">Brilyan Aro</ion-text>
+          <ion-text *ngIf="!edit" class="profile-name bold" >{{ a.name }}</ion-text>
           <ion-input *ngIf="edit" class="profile-name" placeholder="Brilyan Aro"></ion-input>
           <br>
-          <ion-text class="sub-text">Universitas Multimedia Nusantara</ion-text>
+          <ion-text class="sub-text">{{a.univ}}</ion-text>
             </form>
         </ion-col>
       </ion-row>
@@ -57,7 +57,7 @@
                 <ion-avatar slot="start">
                     <img src="../../assets/icon/trophy2.png">
                   </ion-avatar>
-              <ion-label><strong>Redeem Tumbler 350ml</strong> 
+              <ion-label><strong>asd</strong> 
                 <br> -35000 leaf <br>
                 30 Nov 2019
               </ion-label>

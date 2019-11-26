@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-scan',
@@ -9,10 +11,24 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
   styleUrls: ['./scan.page.scss'],
 })
 export class ScanPage implements OnInit {
-
-  constructor(private qrScanner: QRScanner,public actionSheetController: ActionSheetController,public router: Router) { }
+  scannedData: any;
+  encodedData: '';
+  encodeData: any;
+  options: BarcodeScannerOptions = {
+    preferFrontCamera: false,
+    showFlipCameraButton: false,
+    showTorchButton: true,
+    torchOn: false,
+    prompt: 'Arahkan QR CODE pada kotak scan',
+    resultDisplayDuration: 500,
+    formats: 'QR_CODE,PDF_417 ',
+    orientation: 'portrait',
+  };
+  constructor(public fAuth: AngularFireAuth,public barcodeCtrl: BarcodeScanner,public actionSheetController: ActionSheetController,public router: Router) { }
 
   ngOnInit() {
+   
+
   }
 
   async presentActionSheet() {
@@ -22,7 +38,8 @@ export class ScanPage implements OnInit {
         text: 'Logout',
         role: 'destructive',
         handler: () => {
-          this.router.navigateByUrl("/auth")
+          
+          this.logout()
           console.log('Delete clicked');
         }
       }]
@@ -31,29 +48,21 @@ export class ScanPage implements OnInit {
   }
 
   scan(){
-    this.qrScanner.prepare()
-  .then((status: QRScannerStatus) => {
-     if (status.authorized) {
-       // camera permission was granted
+  
+    this.barcodeCtrl.scan(this.options).then(barcodeData => {
+      console.log('Barcode data', barcodeData);
+      this.scannedData = barcodeData;
 
+    }).catch(err => {
+      console.log('Error', err);
+    });
 
-       // start scanning
-       let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-         console.log('Scanned something', text);
+}
 
-         this.qrScanner.hide(); // hide camera preview
-         scanSub.unsubscribe(); // stop scanning
-       });
+logout() {
+  this.fAuth.auth.signOut();
+  this.router.navigateByUrl("/auth")
+}
 
-     } else if (status.denied) {
-       // camera permission was permanently denied
-       // you must use QRScanner.openSettings() method to guide the user to the settings page
-       // then they can grant the permission from there
-     } else {
-       // permission was denied, but not permanently. You can ask for permission again at a later time.
-     }
-  })
-  .catch((e: any) => console.log('Error is', e));
-  }
 
 }
