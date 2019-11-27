@@ -15,6 +15,8 @@ const routes: Routes = [
   { path: 'qrcode', loadChildren: './qrcode/qrcode.module#QrcodePageModule',...canActivate(redirectUnauthorizedToLanding) },
   { path: 'scan', loadChildren: './scan/scan.module#ScanPageModule',...canActivate(redirectUnauthorizedToLanding) },
   { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
+  { path: 'admin/voucher', loadChildren: './admin/voucher/voucher.module#VoucherPageModule' },
+  { path: 'admin/voucher/create', loadChildren: './admin/voucher/create/create.module#CreatePageModule' },
   /* { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' }, */

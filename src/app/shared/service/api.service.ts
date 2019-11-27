@@ -41,4 +41,8 @@ export class ApiService {
   read_rewardsID(id:string){
     return this.firestore.collection('Rewards', ref => ref.where('reward_id','==',id)).snapshotChanges()
   }
+
+  createReward(record){
+    return this.firestore.collection('Rewards').add(record);
+  }
 }
