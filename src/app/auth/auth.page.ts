@@ -15,6 +15,7 @@ export class AuthPage implements OnInit {
   fgRegister: FormGroup
   fgLogin: FormGroup
   segment = "login"
+  adminId = "yKSIDwf726YPCquNFYCacvq6GHA2"
   constructor(private router:Router,
     private api: ApiService,
     private loading: LoadingService, 
@@ -58,13 +59,14 @@ export class AuthPage implements OnInit {
    
     console.log("email",this.fgRegister.value.email)
     
-
+    this.loading.present()
     try {
       var r = await this.fireAuth.auth.createUserWithEmailAndPassword(
         this.fgRegister.value.email,
         this.fgRegister.value.password
       );
       if(r){
+        this.loading.dismiss()
         this.presentToast('Sukses Register')
         this.segment = 'login';
         let uid = r.user.uid
@@ -76,6 +78,7 @@ export class AuthPage implements OnInit {
        
       }
     }catch (err){
+      this.loading.dismiss()
       console.log(err)
       this.loading.presentToast(err);
     }
@@ -91,20 +94,29 @@ export class AuthPage implements OnInit {
     let body = this.fgLogin.value;
     console.log("email",this.fgLogin.value.email)
     console.log("passw",this.fgLogin.value.password)
+    this.loading.present()
     try {
       var r = await this.fireAuth.auth.signInWithEmailAndPassword(
         this.fgLogin.value.email,
         this.fgLogin.value.password
       );
       if (r) {
+        this.loading.dismiss()
         console.log("Successfully logged in!",r);
         let current = this.fireAuth.auth.currentUser.uid
         console.log("current",current)
+        if(current === this.adminId){
+        
+          localStorage.setItem("curUser",current)
+        this.router.navigateByUrl("/scan")
+        }else{
         localStorage.setItem("curUser",current)
         this.router.navigateByUrl("/home")
+        }
       }
 
     } catch (err) {
+      this.loading.dismiss()
       console.error(err);
     }
   }

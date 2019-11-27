@@ -3,7 +3,7 @@
        <ion-text class="title" color="secondary">Daur</ion-text>
        <ion-item color="secondary-shade" slot="end" lines="none">
            <ion-icon name="ios-leaf" color="secondary"></ion-icon>
-           <ion-label color="dark">1600</ion-label>
+           <ion-label color="dark"></ion-label>
        </ion-item>
        
     </ion-item>
@@ -24,9 +24,16 @@
      <ion-grid>
        <ion-row class="p-10 mr-3 card-100">
          <ion-col>
-           <ion-text class="text-name bold">Brilyan Aro</ion-text><br>
-           <ion-text class="sub-text">Friday, 17 December 2019</ion-text>
-         </ion-col>
+            <div class="ion-padding custom-skeleton" *ngIf="!user">
+                
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+              </div>
+            <div *ngIf="user">
+           <ion-text class="text-name bold">{{user.name}}</ion-text><br>
+           <ion-text class="sub-text">{{curDate | date: 'fullDate'}}</ion-text>
+          </div>
+          </ion-col>
        </ion-row>
    
      </ion-grid>

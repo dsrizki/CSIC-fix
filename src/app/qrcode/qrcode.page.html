@@ -14,10 +14,10 @@
     <ion-grid>
         <ion-row class="ion-justify-content-center mt-30">
           <ion-col class="ion-text-center" size="12">
-              <img src="../../assets/icon/daur.png" alt="">
+            <ngx-qrcode [qrc-value]="userId"></ngx-qrcode>
           </ion-col>
           <ion-col class="ion-text-center">
-            UID: 0829172322
+            UID: {{userId}}
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -1,9 +1,10 @@
-<ion-header color="secondary-shade" no-border>
+<ion-header color="light" no-border>
     <ion-item color="secondary-shade" lines="none">
        <ion-text class="title" color="secondary">Daur</ion-text>
        <ion-item color="secondary-shade" slot="end" lines="none">
            <ion-icon name="ios-leaf" color="secondary"></ion-icon>
            <ion-label color="dark">1600</ion-label>
+           <ion-icon name="md-more" (click)="presentActionSheet()"></ion-icon>
        </ion-item>
        
     </ion-item>
@@ -29,7 +30,7 @@
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
-          <ion-button fill="outline" *ngIf="!edit" (click)="goToCreateCode()">Edit Profile</ion-button>
+          <ion-button fill="outline" *ngIf="!edit" (click)="edit = !edit">Edit Profile</ion-button>
           <ion-button *ngIf="edit" (click)="edit = !edit">Save</ion-button>
         </ion-col>
       </ion-row>

@@ -1,24 +1,48 @@
 import { Component } from '@angular/core';
-import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
+import { ApiService } from '../shared/service/api.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  animations: [
-    trigger('visibilityChanged', [
-      state('shown', style({ opacity: 1 })),
-      state('hidden', style({ opacity: 0 })),
-      transition('* => *', animate("2s", keyframes([
-        style({ backgroundColor: "red" }), // offset = 0
-        style({ backgroundColor: "blue" }), // offset = 0.33
-        style({ backgroundColor: "orange" }), // offset = 0.66
-        style({ backgroundColor: "black" }) // offset = 1
-      ])))
-    ])
-  ]
+ 
 })
 export class HomePage {
   visibility: string = 'shown';
-  constructor() {}
+  curUser
+  user= []
+  curDate = new Date()
+  constructor(private api:ApiService) {
+
+   this.user = null;
+    this.curUser = localStorage.getItem('curUser')
+    this.getData()
+
+  }
+
+
+  getData(){
+    this.api.read_userId(this.curUser).subscribe(res =>{
+     //this.user = res;
+     this.user = res.map(e => {
+      return {
+        id: e.payload.doc.id,
+        isEdit: false,
+        name: e.payload.doc.data()['name'],
+        email: e.payload.doc.data()['email'],
+        points: e.payload.doc.data()['points'],
+        univ: e.payload.doc.data()['university'],
+      };
+    })
+
+    let user = this.user[0]
+    this.user = user;
+
+    console.log("useraa",this.user)
+    
+   })
+
+  
+   
+  }
 
 }

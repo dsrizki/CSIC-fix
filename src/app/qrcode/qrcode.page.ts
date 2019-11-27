@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QrcodePage implements OnInit {
 
-  constructor() { }
+  qrData = null
+  userId: string;
+  userQrCode = null
+  constructor() { 
+
+    this.userId = localStorage.getItem("curUser")
+    console.log("userid -> ",this.userId)
+
+  }
 
   ngOnInit() {
+
   }
+
+  
 
 }

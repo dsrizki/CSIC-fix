@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/service/api.service';
 import { AngularFirestoreCollection } from 'angularfire2/firestore'
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+import { ActionSheetController } from '@ionic/angular';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,8 +18,9 @@ export class ProfilePage implements OnInit {
   user:any;
   fix;
   encodedData
+  
 
-  constructor(private api: ApiService,public barcodeCtrl: BarcodeScanner) { 
+  constructor(private router: Router,public fAuth: AngularFireAuth,public actionSheetController: ActionSheetController,private api: ApiService,public barcodeCtrl: BarcodeScanner) { 
     this.curUser = localStorage.getItem("curUser")
     console.log("curUser",this.curUser)
    
@@ -57,6 +61,27 @@ export class ProfilePage implements OnInit {
     }, (err) => {
       console.log('Error occured : ' + err);
     });
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Action',
+      buttons: [{
+        text: 'Logout',
+        role: 'destructive',
+        handler: () => {
+          
+          this.logout()
+          console.log('Delete clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  logout() {
+    this.fAuth.auth.signOut();
+    this.router.navigateByUrl("/auth")
   }
 
 }
