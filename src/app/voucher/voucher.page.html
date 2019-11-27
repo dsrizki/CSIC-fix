@@ -1,17 +1,34 @@
 <ion-header color="secondary-shade" no-border>
-    <ion-item color="secondary-shade" lines="none">
-       <ion-text class="title" color="secondary">Daur</ion-text>
-       <ion-item color="secondary-shade" slot="end" lines="none">
-           <ion-icon name="ios-leaf" color="secondary"></ion-icon>
-           <ion-label color="dark">1600</ion-label>
-       </ion-item>
-       
-    </ion-item>
-   </ion-header>
+  <ion-item color="secondary-shade" lines="none">
+      <ion-text class="title" color="secondary">Daur</ion-text>
+      <ion-item color="secondary-shade" slot="end" lines="none">
+          <ion-icon name="ios-leaf" color="secondary"></ion-icon>
+          <ion-label color="dark">1600</ion-label>
+      </ion-item>
+      
+  </ion-item>
+</ion-header>
 
 <ion-content padding>
   <ion-text color="primary" class="bold page-title">Rewards</ion-text>
-  <ion-card class="voucher-card">
+  
+  <ion-card class="voucher-card" *ngFor="let x of reward">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <img class="w-50" [src]="x.image" alt="">
+        </ion-col>
+        <ion-col>
+            <ion-card-content>
+              <ion-text color="dark" class="bold head-title">{{x.name}}</ion-text>
+              <ion-button color="primary" class="btn-redeem" (click)="redeem(x.reward_id)">Redeem</ion-button>
+            </ion-card-content>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  
+  <!-- <ion-card class="voucher-card">
     <ion-grid>
       <ion-row>
         <ion-col size="4">
@@ -25,9 +42,8 @@
         </ion-col>
       </ion-row>
     </ion-grid>
- 
+   </ion-card>
 
-  </ion-card>
   <ion-card class="voucher-card">
     <ion-grid>
       <ion-row>
@@ -78,6 +94,6 @@
     </ion-grid>
  
 
-  </ion-card>
+  </ion-card> -->
 
 </ion-content>

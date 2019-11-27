@@ -26,14 +26,12 @@ export class ProfilePage implements OnInit {
     this.getData()
   }
 
-
   getData(){
     this.api.read_userId(this.curUser).subscribe(res =>{
      //this.user = res;
      this.user = res.map(e => {
       return {
         id: e.payload.doc.id,
-        isEdit: false,
         name: e.payload.doc.data()['name'],
         email: e.payload.doc.data()['email'],
         points: e.payload.doc.data()['points'],

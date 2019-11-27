@@ -24,11 +24,8 @@ export class ApiService {
   }
 
   read_userId(id:string) {
-   
    return this.firestore.collection('User', ref => ref.where('uid','==',id)).snapshotChanges()
-  
-  
-   }
+  }
  
   update_user(recordID,record){
     this.firestore.doc('User/' + recordID).update(record);
@@ -36,5 +33,12 @@ export class ApiService {
  
   delete_user(record_id) {
     this.firestore.doc('User/' + record_id).delete();
+  }
+
+  read_rewards(){
+    return this.firestore.collection('Rewards').snapshotChanges();
+  }
+  read_rewardsID(id:string){
+    return this.firestore.collection('Rewards', ref => ref.where('reward_id','==',id)).snapshotChanges()
   }
 }
