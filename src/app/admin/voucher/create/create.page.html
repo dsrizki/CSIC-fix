@@ -11,8 +11,26 @@
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Image</ion-label>
-      <ion-input type="text" formControlName="image"></ion-input>
+      <ion-label position="stacked">Image</ion-label>
+      <!-- <br><br> -->
+      <!-- <ion-input type="text" formControlName="image"></ion-input> -->
+      <div class="upload-container">
+        <!-- <a>Choose Photo</a> -->
+        <ion-input
+          id="uploadBtn"
+          type="file"
+          formControlName="image"
+          class="upload"
+          (change)="uploadFile($event.target.files)"
+        ></ion-input>
+      </div>
+      <div *ngIf="snapshot | async as snap">
+        <!--  File Size: {{ snap.totalBytes | fileSizePipe }} Transfered:
+         {{ snap.bytesTransferred | fileSizePipe }} -->
+         <div *ngIf="snapshot && snap.bytesTransferred != snap.totalBytes">
+
+         </div>
+       </div>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Description</ion-label>
@@ -20,15 +38,14 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Point Price</ion-label>
-      <ion-input type="text" formControlName="point_price"></ion-input>
+      <ion-input type="number" formControlName="point_price"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Quantity</ion-label>
-      <ion-input type="text" formControlName="qty"></ion-input>
+      <ion-input type="number" formControlName="qty"></ion-input>
     </ion-item>
 
     <ion-button expand="full" (click)="createReward()">Create</ion-button>
-
 
   </form>
   
