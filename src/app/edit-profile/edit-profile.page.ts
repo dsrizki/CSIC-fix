@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../shared/service/api.service';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+import { ActionSheetController } from '@ionic/angular';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LoadingService } from '../shared/service/loading.service';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 
 import { tap, finalize } from 'rxjs/operators';
-import { ApiService } from '../shared/service/api.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LoadingService } from '../shared/service/loading.service';
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.page.html',
@@ -14,6 +18,7 @@ import { LoadingService } from '../shared/service/loading.service';
 })
 export class EditProfilePage implements OnInit {
 
+  userId;
   curUser;
   fg: FormGroup;
   user:any;
@@ -42,7 +47,14 @@ export class EditProfilePage implements OnInit {
     isUploaded:boolean;
 
 
-  constructor(private loading: LoadingService,private storage: AngularFireStorage,private api: ApiService) { 
+  constructor(private storage: AngularFireStorage,
+  //  private fileChooser: FileChooser,
+    public loading:LoadingService,
+    private router: Router,
+    public fAuth: AngularFireAuth,
+    public actionSheetController: ActionSheetController,
+    private api: ApiService,
+ ) { 
     this.curUser = localStorage.getItem("curUser")
     console.log("curUser",this.curUser)
   }
@@ -53,7 +65,7 @@ export class EditProfilePage implements OnInit {
 
   uploadFile(event: FileList) {
     
-// this.loading.present()
+    this.loading.present()
     // The File object
     const file = event.item(0)
  
@@ -84,12 +96,13 @@ export class EditProfilePage implements OnInit {
     console.log("upload image")
     // Get file progress percentage
     this.percentage = this.task.percentageChanges();
-    this.snapshot = this.task.snapshotChanges().pipe(
+     this.task.snapshotChanges().pipe(
       
       finalize(() => {
         // Get uploaded file storage path
+        console.log("asdsda")
         this.UploadedFileURL = fileRef.getDownloadURL();
-        
+        console.log("asdsda",this.UploadedFileURL)
         this.UploadedFileURL.subscribe(resp=>{
          /*  this.addImagetoDB({
             name: file.name,
@@ -103,18 +116,26 @@ export class EditProfilePage implements OnInit {
 
           this.api.update_image(body,this.curUser);
         
-        //  this.loading.dismiss()
+          this.loading.dismiss()
           this.getData()
         },error=>{
           console.error(error);
-          //this.loading.dismiss()
+        this.loading.dismiss()
         })
-      }),
-      tap(snap => {
-          this.fileSize = snap.totalBytes;
       })
-    )
+    ).subscribe();
     
+  }
+
+  save(){
+    this.loading.present();
+    let body = this.fg.value
+    this.api.update_user(this.userId,body).then(()=>{
+      this.loading.dismiss()
+      this.router.navigate(['home/tabs/tab2'])
+    })
+    
+    console.log("saved")
   }
 
   initForm(){
@@ -141,7 +162,7 @@ export class EditProfilePage implements OnInit {
     console.log("useraa",this.user)
     let a = this.user[0];
     this.user = a;
-   // this.userId = this.user.id
+   this.userId = this.user.id
    
    })
 

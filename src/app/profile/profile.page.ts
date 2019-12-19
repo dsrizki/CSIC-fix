@@ -57,7 +57,14 @@ export class ProfilePage implements OnInit {
   fg:FormGroup
   imgPreview;
 
-  constructor(private storage: AngularFireStorage,private fileChooser: FileChooser,public loading:LoadingService,private router: Router,public fAuth: AngularFireAuth,public actionSheetController: ActionSheetController,private api: ApiService,public barcodeCtrl: BarcodeScanner) { 
+  constructor(private storage: AngularFireStorage,
+    private fileChooser: FileChooser,
+    public loading:LoadingService,
+    private router: Router,
+    public fAuth: AngularFireAuth,
+    public actionSheetController: ActionSheetController,
+    private api: ApiService,
+    public barcodeCtrl: BarcodeScanner) { 
     this.curUser = localStorage.getItem("curUser")
     console.log("curUser",this.curUser)
    
