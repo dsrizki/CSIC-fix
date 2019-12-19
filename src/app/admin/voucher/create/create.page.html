@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>create</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="fgCreateReward">
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Image</ion-label>
+      <ion-input type="text" formControlName="image"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-input type="text" formControlName="description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Point Price</ion-label>
+      <ion-input type="text" formControlName="point_price"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Quantity</ion-label>
+      <ion-input type="text" formControlName="qty"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" (click)="createReward()">Create</ion-button>
+
+
+  </form>
+  
+</ion-content>

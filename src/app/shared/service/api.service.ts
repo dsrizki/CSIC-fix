@@ -100,4 +100,7 @@ export class ApiService {
   }
 
   
+  createReward(record){
+    return this.firestore.collection('Rewards').add(record);
+  }
 }
