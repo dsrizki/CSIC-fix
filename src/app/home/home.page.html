@@ -69,86 +69,15 @@
       <ion-row>
         <ion-col>
           <ion-text color="dark" class="bold head-text">
-            News
+            Leaderboard
           </ion-text>
         </ion-col>
       </ion-row>
       <ion-list>
-          <ion-item-sliding>
-              <ion-item>
-                  <ion-thumbnail slot="start">
-                      <img src="../../assets/thumb.jpg">
-                    </ion-thumbnail>
-                <ion-label><strong>Sebuah berita ditulis disini</strong> 
-                  <br>  <br>
-                  <small>30 Nov 2019</small>
-                </ion-label>
-                
-              </ion-item>
-              <ion-item-options side="end">
-                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-              </ion-item-options>
-            </ion-item-sliding>
-          <ion-item-sliding>
-              <ion-item>
-                  <ion-thumbnail slot="start">
-                      <img src="../../assets/thumb.jpg">
-                    </ion-thumbnail>
-                <ion-label><strong>Sebuah berita ditulis disini</strong> 
-                  <br>  <br>
-                  <small>30 Nov 2019</small>
-                </ion-label>
-                
-              </ion-item>
-              <ion-item-options side="end">
-                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-              </ion-item-options>
-            </ion-item-sliding>
-          <ion-item-sliding>
-              <ion-item>
-                  <ion-thumbnail slot="start">
-                      <img src="../../assets/thumb.jpg">
-                    </ion-thumbnail>
-                <ion-label><strong>Sebuah berita ditulis disini</strong> 
-                  <br>  <br>
-                  <small>30 Nov 2019</small>
-                </ion-label>
-                
-              </ion-item>
-              <ion-item-options side="end">
-                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-              </ion-item-options>
-            </ion-item-sliding>
-          <ion-item-sliding>
-              <ion-item>
-                  <ion-thumbnail slot="start">
-                      <img src="../../assets/thumb.jpg">
-                    </ion-thumbnail>
-                <ion-label><strong>Sebuah berita ditulis disini</strong> 
-                  <br>  <br>
-                  <small>30 Nov 2019</small>
-                </ion-label>
-                
-              </ion-item>
-              <ion-item-options side="end">
-                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-              </ion-item-options>
-            </ion-item-sliding>
-          <ion-item-sliding>
-              <ion-item>
-                  <ion-thumbnail slot="start">
-                      <img src="../../assets/thumb.jpg">
-                    </ion-thumbnail>
-                <ion-label><strong>Sebuah berita ditulis disini</strong> 
-                  <br>  <br>
-                  <small>30 Nov 2019</small>
-                </ion-label>
-                
-              </ion-item>
-              <ion-item-options side="end">
-                <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-              </ion-item-options>
-            </ion-item-sliding>
+     <ion-item *ngFor="let a of allUser">
+       {{a.name}}
+      </ion-item>
+         
       </ion-list>
     </ion-grid>
   

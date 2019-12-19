@@ -96,7 +96,7 @@ export class EditProfilePage implements OnInit {
     console.log("upload image")
     // Get file progress percentage
     this.percentage = this.task.percentageChanges();
-     this.task.snapshotChanges().pipe(
+     this.snapshot = this.task.snapshotChanges().pipe(
       
       finalize(() => {
         // Get uploaded file storage path
@@ -123,7 +123,7 @@ export class EditProfilePage implements OnInit {
         this.loading.dismiss()
         })
       })
-    ).subscribe();
+    )
     
   }
 
