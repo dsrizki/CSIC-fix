@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ApiService } from '../shared/service/api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LoadingService } from '../shared/service/loading.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-scan',
@@ -19,6 +21,7 @@ export class ScanPage implements OnInit {
   curUser
   user = []
   fg: FormGroup
+  targetUser = []
   options: BarcodeScannerOptions = {
     preferFrontCamera: false,
     showFlipCameraButton: false,
@@ -29,7 +32,10 @@ export class ScanPage implements OnInit {
     formats: 'QR_CODE,PDF_417 ',
     orientation: 'portrait',
   };
-  constructor(private api:ApiService,public fAuth: AngularFireAuth,public barcodeCtrl: BarcodeScanner,public actionSheetController: ActionSheetController,public router: Router) {
+  currentPoint;
+  targetPoint;
+  subs: Subscription;
+  constructor(public alertController: AlertController,private loading: LoadingService,private api:ApiService,public fAuth: AngularFireAuth,public barcodeCtrl: BarcodeScanner,public actionSheetController: ActionSheetController,public router: Router) {
 
     this.fg = new FormGroup({
       uid: new FormControl("",Validators.required),
@@ -96,6 +102,82 @@ export class ScanPage implements OnInit {
       console.log('Error', err);
     });
 
+}
+
+ save(){
+
+  //this.loading.present()
+ this.targetPoint = this.fg.value.points
+  let uid = this.fg.value.uid
+
+ /*  let body = {
+    points: point
+  } */
+  
+   this.subs =  this.api.read_userId(uid).subscribe(res =>{
+      //this.user = res;
+      this.targetUser = res.map(e => {
+       return {
+         points: e.payload.doc.data()['points'],
+       };
+     })
+     
+  console.log("targetuser",this.targetUser)
+  
+    })
+
+
+ // this.updatePoint()
+this.presentAlertConfirm() 
+ //this.loading.dismiss()
+  
+  
+}
+
+async presentAlertConfirm() {
+  const alert = await this.alertController.create({
+    header: 'Send Point Confirm',
+    message: '<strong>Are you sure to send point?</strong>',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+          console.log('Confirm Okay');
+          this.updatePoint()
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+updatePoint(){
+  this.subs.unsubscribe();
+  this.loading.present()
+  let uid = this.fg.value.uid
+
+  let current = parseInt(this.targetUser[0].points)
+  let update = parseInt(this.targetPoint)
+  console.log("current",current)
+  console.log("update",update)
+  let sum = current + update
+  console.log("sum",sum)
+
+  let body = {
+    points: sum
+  }
+  
+  this.api.update_point(body,uid)
+  
+  this.loading.dismiss()
 }
 
 logout() {

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profile"></ion-back-button>
+      
+    <ion-title>Edit Profile</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-text-center">
+            <img class="round" *ngIf="user" [src]="user.image" alt="">
+            <br>
+            <div class="upload-container">
+                <a href="">Change Profile Photo</a> 
+              <input
+                id="uploadBtn"
+                type="file"
+                class="upload"
+                (change)="uploadFile($event.target.files)"
+              />
+            </div>
+            <div *ngIf="percentage | async as pct">
+                Progress: {{ pct | number }}%
+                <ion-progress-bar value="{{ pct / 100 }}"></ion-progress-bar>
+            </div>
+            
+          </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

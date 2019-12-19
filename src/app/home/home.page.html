@@ -1,9 +1,9 @@
-<ion-header color="secondary-shade" no-border>
+<ion-header no-border>
     <ion-item color="secondary-shade" lines="none">
        <ion-text class="title" color="secondary">Daur</ion-text>
        <ion-item color="secondary-shade" slot="end" lines="none">
            <ion-icon name="ios-leaf" color="secondary"></ion-icon>
-           <ion-label color="dark"></ion-label>
+           <ion-label color="dark" *ngIf="user">{{user.points}}</ion-label>
        </ion-item>
        
     </ion-item>

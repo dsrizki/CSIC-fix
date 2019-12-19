@@ -35,6 +35,7 @@ export class VoucherPage implements OnInit {
   }
 
   redeem(id:string){
+    console.log("redeem to id ",id)
     this.router.navigate(["voucher",id]);
   }
 }

@@ -13,7 +13,6 @@ export class ApiService {
    }
 
 
-
   create_user(record) {
     return this.firestore.collection('User').add(record);
     
@@ -28,7 +27,7 @@ export class ApiService {
   }
  
   update_user(recordID,record){
-    this.firestore.doc('User/' + recordID).update(record);
+    return this.firestore.doc('User/' + recordID).update(record);
   }
  
   delete_user(record_id) {
@@ -41,4 +40,64 @@ export class ApiService {
   read_rewardsID(id:string){
     return this.firestore.collection('Rewards', ref => ref.where('reward_id','==',id)).snapshotChanges()
   }
+
+  update_point(body,uid){
+
+    let data = []
+    return this.firestore.collection('User', ref => ref.where('uid','==',uid)).snapshotChanges()
+    .subscribe(a => {
+     
+      data = a.map(e => {
+        return {
+          id: e.payload.doc.id,
+          points: e.payload.doc.data()['points']
+        }
+      })
+     /*  console.log("points dikirim",body.points)
+      console.log("points",data[0].points)
+      let current = parseInt(body.points)
+      let update = parseInt(data[0].points)
+      let sum = current + update
+      console.log("sum points",sum)
+      let model = {
+        points: sum
+      } */
+
+     this.firestore.doc('User/'+data[0].id).update(body);
+    })
+    
+    
+    
+  }
+
+  update_image(body,uid){
+
+    let data = []
+    return this.firestore.collection('User', ref => ref.where('uid','==',uid)).snapshotChanges()
+    .subscribe(a => {
+     
+      data = a.map(e => {
+        return {
+          id: e.payload.doc.id,
+          points: e.payload.doc.data()['points']
+        }
+      })
+     /*  console.log("points dikirim",body.points)
+      console.log("points",data[0].points)
+      let current = parseInt(body.points)
+      let update = parseInt(data[0].points)
+      let sum = current + update
+      console.log("sum points",sum)
+      let model = {
+        points: sum
+      } */
+
+     this.firestore.doc('User/'+data[0].id).update(body);
+    })
+    
+    
+    
+  }
+
+  
 }

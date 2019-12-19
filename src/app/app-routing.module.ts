@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'history', loadChildren: './history/history.module#HistoryPageModule',...canActivate(redirectUnauthorizedToLanding) },
   { path: 'qrcode', loadChildren: './qrcode/qrcode.module#QrcodePageModule',...canActivate(redirectUnauthorizedToLanding) },
   { path: 'scan', loadChildren: './scan/scan.module#ScanPageModule',...canActivate(redirectUnauthorizedToLanding) },
-  { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
+  { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },  { path: 'edit-profile', loadChildren: './edit-profile/edit-profile.module#EditProfilePageModule' },
+
   /* { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' }, */

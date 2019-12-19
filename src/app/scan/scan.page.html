@@ -26,18 +26,18 @@
     <ion-label>Weight: </ion-label>
     <ion-item>
 
-        <ion-input placeholder="ex 150gr" formControlName="points"></ion-input>
+        <ion-input type="number" placeholder="150 (skala gram)" formControlName="points"></ion-input>
     </ion-item>
-    <ion-button color="primary" class="mr-3" expand="full">Save</ion-button>
+    <ion-button color="primary" class="mr-3" expand="full" (click)="save()">Save</ion-button>
   </form>
-  <div *ngIf="scannedData">
+  <!-- <div *ngIf="scannedData">
     <p>
       Scanned Code Text : <b>{{ scannedData["text"] }}</b>
     </p>
     <p>
       Scanned Code Format : <b>{{ scannedData["format"] }}</b>
     </p>
-  </div>
+  </div> -->
 
 
 </ion-content>

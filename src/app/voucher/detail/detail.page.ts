@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../shared/service/api.service';
+import { LoadingService } from 'src/app/shared/service/loading.service';
+import { AlertController } from '@ionic/angular';
+import { ToastService } from 'src/app/shared/service/toast.service';
+
 
 @Component({
   selector: 'app-detail',
@@ -9,8 +13,12 @@ import { ApiService } from '../../shared/service/api.service';
 })
 export class DetailPage implements OnInit {
   detailReward = [];
-
-  constructor(private api: ApiService, private activatedRoute: ActivatedRoute) {}
+  uid;
+  user: any;
+  price;
+  constructor(public toast:ToastService,public alertController: AlertController,public loading:LoadingService,private api: ApiService, private activatedRoute: ActivatedRoute) {
+    this.uid = localStorage.getItem("curUser")
+  }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(
@@ -33,10 +41,79 @@ export class DetailPage implements OnInit {
           
           let a = this.detailReward[0];
           this.detailReward = a;
+          this.price = a.point_price
+          console.log("this point price",this.price)
           // console.log();
         });
         // this.loadedRecipe = this.recipesSvc.getRecipe(paramMap.get('recipeId'));
       });
+  }
+
+  redeem(){
+    this.api.read_userId(this.uid).subscribe(res =>{
+      this.user = res.map(e => {
+        return {
+          points: e.payload.doc.data()['points']
+        }
+      });
+
+      let a = this.user[0];
+      this.user = a;
+      console.log("user a points",a)
+    })
+
+    this.presentAlertConfirm()
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Send Point Confirm',
+      message: '<strong>Are you sure to send point?</strong>',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.update()
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+
+  update(){
+    this.loading.present()
+    
+    
+
+    let current = parseInt(this.user.points)
+    let price = parseInt(this.price)
+
+    if(current < price){
+      this.loading.dismiss()
+      this.loading.presentToast('Your points is not enough to redeem this voucher');
+      return false;
+    }
+
+    let transact = current - price;
+
+    let body = {
+      points: transact
+    }
+
+    this.api.update_point(body,this.uid)
+    this.loading.dismiss()
+    
   }
 
 }

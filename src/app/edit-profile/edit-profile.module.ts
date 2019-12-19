@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProfilePage } from './profile.page';
+import { EditProfilePage } from './edit-profile.page';
 
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { FileChooser } from '@ionic-native/file-chooser/ngx';
 const routes: Routes = [
   {
     path: '',
-    component: ProfilePage
+    component: EditProfilePage
   }
 ];
 
@@ -23,10 +21,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes)
-  ], providers: [
-    BarcodeScanner,
-    FileChooser
   ],
-  declarations: [ProfilePage]
+  declarations: [EditProfilePage]
 })
-export class ProfilePageModule {}
+export class EditProfilePageModule {}

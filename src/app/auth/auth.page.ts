@@ -118,6 +118,7 @@ export class AuthPage implements OnInit {
     } catch (err) {
       this.loading.dismiss()
       console.error(err);
+      this.presentToast(err.message)
     }
   }
 

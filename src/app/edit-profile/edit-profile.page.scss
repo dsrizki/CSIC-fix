@@ -1,0 +1,18 @@
+.upload-container {
+    position: relative;
+  }
+
+  a{
+      text-decoration: none;
+  }
+  
+  input#uploadBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: transparent;
+    background: transparent;
+    opacity: 0;
+    outline: none;
+    cursor: pointer;
+  }
