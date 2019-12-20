@@ -60,12 +60,6 @@ reward: any
           console.log('Delete clicked');
         }
       }, {
-        text: 'Share',
-        icon: 'share',
-        handler: () => {
-          console.log('Share clicked');
-        }
-      }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',

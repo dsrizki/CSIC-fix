@@ -59,7 +59,8 @@
           <ion-item *ngFor="let item of history">
             <ion-label><strong>{{item.type}}</strong>
             <br>
-              {{item.points}}
+              <span *ngIf="item.type === 'deposit'" class="text-green">+{{item.points}}</span>
+              <span *ngIf="item.type === 'purchase'" class="text-red">-{{item.points}}</span>
               <br>
               {{item.date.seconds * 1000 | date: 'medium'}}
           </ion-label>

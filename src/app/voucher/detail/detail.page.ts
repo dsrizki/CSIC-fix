@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../shared/service/api.service';
 import { LoadingService } from 'src/app/shared/service/loading.service';
 import { AlertController } from '@ionic/angular';
@@ -20,7 +20,7 @@ export class DetailPage implements OnInit {
   qty;
   rewardref;
   curDate = new Date();
-  constructor(public toast:ToastService,public alertController: AlertController,public loading:LoadingService,private api: ApiService, private activatedRoute: ActivatedRoute) {
+  constructor(public router: Router,public toast:ToastService,public alertController: AlertController,public loading:LoadingService,private api: ApiService, private activatedRoute: ActivatedRoute) {
     this.uid = localStorage.getItem("curUser")
   }
 
@@ -137,6 +137,8 @@ export class DetailPage implements OnInit {
 
     this.api.updateReward(this.rewardref,model).then(()=>{
       console.log("update reward qty")
+      this.loading.presentToast("Reward purchased")
+      this.router.navigate(['/home/tabs/tab3'])
     })
 
     let history = {

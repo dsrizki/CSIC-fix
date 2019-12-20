@@ -19,6 +19,7 @@ export class ScanPage implements OnInit {
   encodedData: '';
   encodeData: any;
   curUser
+  curDate = new Date();
   user = []
   fg: FormGroup
   targetUser = []
@@ -35,6 +36,7 @@ export class ScanPage implements OnInit {
   currentPoint;
   targetPoint;
   subs: Subscription;
+  uidRef;
   constructor(public menu: MenuController,public alertController: AlertController,private loading: LoadingService,private api:ApiService,public fAuth: AngularFireAuth,public barcodeCtrl: BarcodeScanner,public actionSheetController: ActionSheetController,public router: Router) {
     this.menu.enable(false);
     this.fg = new FormGroup({
@@ -118,10 +120,12 @@ export class ScanPage implements OnInit {
       //this.user = res;
       this.targetUser = res.map(e => {
        return {
+         id: e.payload.doc.id,
          points: e.payload.doc.data()['points'],
        };
      })
      
+     this.uidRef = this.targetUser[0].id
   console.log("targetuser",this.targetUser)
   
     })
@@ -174,9 +178,17 @@ updatePoint(){
   let body = {
     points: sum
   }
+
+  let history = {
+    type: "deposit",
+    date: this.curDate,
+    points: update
+  }
   
+  this.api.create_history(this.uidRef,history);
   this.api.update_point(body,uid)
   
+  this.loading.presentToast('Sukses menambahkan point')
   this.loading.dismiss()
 }
 
