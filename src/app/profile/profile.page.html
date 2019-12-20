@@ -3,7 +3,7 @@
        <ion-text class="title" color="secondary">Daur</ion-text>
        <ion-item color="secondary-shade" slot="end" lines="none">
            <ion-icon name="ios-leaf" color="secondary"></ion-icon>
-           <ion-label color="dark">1600</ion-label>
+           <ion-label color="dark" *ngIf="user">{{user.points}}</ion-label>
            <ion-icon name="md-more" (click)="presentActionSheet()"></ion-icon>
        </ion-item>
        
@@ -20,7 +20,7 @@
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
-          <form class="ion-text-center" [formGroup]="fg">
+          <form class="ion-text-center" [formGroup]="fg" *ngIf="fg">
             
           <ion-text *ngIf="!edit" class="profile-name bold" >{{ user.name }}</ion-text>
           <label *ngIf="edit" for="">Name:</label>
@@ -56,171 +56,24 @@
 
      
       <ion-list *ngSwitchCase="'history'">
-          <ion-item-sliding>
-            <ion-item>
-                <ion-avatar slot="start">
-                    <img src="../../assets/icon/trophy2.png">
-                  </ion-avatar>
-              <ion-label><strong>asd</strong> 
-                <br> -35000 leaf <br>
-                30 Nov 2019
-              </ion-label>
-              
-            </ion-item>
-            <ion-item-options side="end">
-              <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-
-          <ion-item-sliding>
-            <ion-item>
-                <ion-avatar slot="start">
-                    <img src="../../assets/icon/recycle-green.png">
-                  </ion-avatar>
-              <ion-label><strong>Nabung di UMN-Kantin</strong> 
-                <br> +152 leaf <br>
-                25 Nov 2019
-              </ion-label>
-              
-            </ion-item>
-            <ion-item-options side="end">
-              <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-        
-          <ion-item-sliding>
-            <ion-item>
-                <ion-avatar slot="start">
-                    <img src="../../assets/icon/recycle-green.png">
-                  </ion-avatar>
-              <ion-label><strong>Nabung di UMN-Libro</strong>
-                <br> +12 leaf <br>
-                20 Nov 2019</ion-label>
-            </ion-item>
-            <ion-item-options side="end">
-              <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-
-          <ion-item-sliding>
-            <ion-item>
-                <ion-avatar slot="start">
-                    <img src="../../assets/icon/recycle-green.png">
-                  </ion-avatar>
-              <ion-label><strong>Nabung di UMN-Libro</strong>
-                <br> +12 leaf <br>
-                20 Nov 2019</ion-label>
-            </ion-item>
-            <ion-item-options side="end">
-              <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-
-          <ion-item-sliding>
-            <ion-item>
-                <ion-avatar slot="start">
-                    <img src="../../assets/icon/recycle-green.png">
-                  </ion-avatar>
-              <ion-label><strong>Nabung di UMN-Libro</strong>
-                <br> +12 leaf <br>
-                20 Nov 2019</ion-label>
-            </ion-item>
-            <ion-item-options side="end">
-              <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-          <ion-item-sliding>
-            <ion-item>
-                <ion-avatar slot="start">
-                    <img src="../../assets/icon/recycle-green.png">
-                  </ion-avatar>
-              <ion-label><strong>Nabung di UMN-Libro</strong>
-                <br> +12 leaf <br>
-                20 Nov 2019</ion-label>
-            </ion-item>
-            <ion-item-options side="end">
-              <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-          <ion-item-sliding>
-            <ion-item>
-                <ion-avatar slot="start">
-                    <img src="../../assets/icon/recycle-green.png">
-                  </ion-avatar>
-              <ion-label><strong>Nabung di UMN-Libro</strong>
-                <br> +12 leaf <br>
-                20 Nov 2019</ion-label>
-            </ion-item>
-            <ion-item-options side="end">
-              <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-
+          <ion-item *ngFor="let item of history">
+            <ion-label><strong>{{item.type}}</strong>
+            <br>
+              {{item.points}}
+              <br>
+              {{item.date.seconds * 1000 | date: 'medium'}}
+          </ion-label>
+          </ion-item>
 
 
         </ion-list>
 
         <ion-grid *ngSwitchCase="'qr'">
-          <ion-row >
-            <ion-col >
-                <ion-card text-center *ngIf="!isUploading && !isUploaded">
-                    <ion-card-header>
-                      <ion-card-title>Choose Images to Upload</ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
-                      <div class="fileUpload btn btn-primary">
-                        <span>Upload</span>
-                        <input
-                          id="uploadBtn"
-                          type="file"
-                          class="upload"
-                          (change)="uploadFile($event.target.files)"
-                        />
-                      </div>
-                    </ion-card-content>
-                  </ion-card>
-                  <ion-card text-center *ngIf="isUploading && !isUploaded">
-                      <ion-card-header>
-                        <ion-card-title
-                          >Selected File:<b>{{ fileName }}</b></ion-card-title
-                        >
-                      </ion-card-header>
-                   
-                      <ion-card-content>
-                        <div *ngIf="percentage | async as pct">
-                          Progress: {{ pct | number }}%
-                          <ion-progress-bar value="{{ pct / 100 }}"></ion-progress-bar>
-                        </div>
-                        <div *ngIf="snapshot | async as snap">
-                         <!--  File Size: {{ snap.totalBytes | fileSizePipe }} Transfered:
-                          {{ snap.bytesTransferred | fileSizePipe }} -->
-                          <div *ngIf="snapshot && snap.bytesTransferred != snap.totalBytes">
-                            <ion-button
-                              color="warning"
-                              size="small"
-                              (click)="task.pause()"
-                              class="button is-warning"
-                              >Pause</ion-button
-                            >
-                            <ion-button
-                              size="small"
-                              (click)="task.resume()"
-                              class="button is-info"
-                              >Resume</ion-button
-                            >
-                            <ion-button
-                              color="danger"
-                              size="small"
-                              (click)="task.cancel()"
-                              class="button is-danger"
-                              >Cancel</ion-button
-                            >
-                          </div>
-                        </div>
-                      </ion-card-content>
-                    </ion-card>
-                   
+          <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-text-center">
+               <a routerLink="/qrcode" style="margin-top: 80px">Go to My QR</a>
             </ion-col>
+            
           </ion-row>
         </ion-grid>
          

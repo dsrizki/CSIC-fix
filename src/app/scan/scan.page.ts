@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
@@ -35,8 +35,8 @@ export class ScanPage implements OnInit {
   currentPoint;
   targetPoint;
   subs: Subscription;
-  constructor(public alertController: AlertController,private loading: LoadingService,private api:ApiService,public fAuth: AngularFireAuth,public barcodeCtrl: BarcodeScanner,public actionSheetController: ActionSheetController,public router: Router) {
-
+  constructor(public menu: MenuController,public alertController: AlertController,private loading: LoadingService,private api:ApiService,public fAuth: AngularFireAuth,public barcodeCtrl: BarcodeScanner,public actionSheetController: ActionSheetController,public router: Router) {
+    this.menu.enable(false);
     this.fg = new FormGroup({
       uid: new FormControl("",Validators.required),
       points: new FormControl(null,Validators.required)

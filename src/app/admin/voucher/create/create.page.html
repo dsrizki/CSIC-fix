@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>create</ion-title>
+ <ion-buttons slot="start">
+   <ion-back-button></ion-back-button>
+   <ion-title>Create new reward</ion-title>
+  </ion-buttons>
+   
   </ion-toolbar>
 </ion-header>
 
@@ -44,8 +48,8 @@
       <ion-label position="floating">Quantity</ion-label>
       <ion-input type="number" formControlName="qty"></ion-input>
     </ion-item>
-
-    <ion-button expand="full" (click)="createReward()">Create</ion-button>
+<br>
+    <ion-button expand="full" (click)="createReward()" [disabled]="fgCreateReward.invalid">Create</ion-button>
 
   </form>
   

@@ -1,9 +1,39 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>voucher</ion-title>
+   <ion-buttons slot="start">
+     <ion-back-button></ion-back-button>
+     <ion-title>Reward List</ion-title>
+   </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content padding>
+   
+    <ion-card class="voucher-card" *ngFor="let x of reward">
+      <ion-grid (click)="edit(x.reward_id)">
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label slot="start">{{x.name}}</ion-label>
+             
+                  <ion-icon slot="end" name="more" (click)="$event.preventDefault();$event.stopPropagation();more(x.id)"></ion-icon>
+              
+            </ion-item>
+           
+          </ion-col>
+          <ion-col size="4">
+            <img class="w-50" [src]="x.image" alt="">
+          </ion-col>
+          <ion-col class="bg-grey">
+              <ion-card-content>
+          
+                <ion-text color="dark" class="">{{x.description}}</ion-text>
+              </ion-card-content>
+    
+             
+            </ion-col>
+     
+        </ion-row>
+      </ion-grid>
+    </ion-card>
 </ion-content>

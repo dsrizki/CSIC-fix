@@ -17,6 +17,16 @@ export class ApiService {
     return this.firestore.collection('User').add(record);
     
   }
+
+  read_history(uidref){
+    return this.firestore.collection(`User/${uidref}/History`).snapshotChanges();
+  }
+
+  create_history(uidref,body){
+   
+     return this.firestore.collection(`User/${uidref}/History`).add(body);
+    
+  }
  
   read_user() {
     return this.firestore.collection('User').snapshotChanges();
@@ -32,6 +42,10 @@ export class ApiService {
  
   delete_user(record_id) {
     this.firestore.doc('User/' + record_id).delete();
+  }
+
+  delete_reward(id){
+  return this.firestore.doc('Rewards/'+ id).delete();
   }
 
   read_rewards(){
@@ -53,16 +67,7 @@ export class ApiService {
           points: e.payload.doc.data()['points']
         }
       })
-     /*  console.log("points dikirim",body.points)
-      console.log("points",data[0].points)
-      let current = parseInt(body.points)
-      let update = parseInt(data[0].points)
-      let sum = current + update
-      console.log("sum points",sum)
-      let model = {
-        points: sum
-      } */
-
+  
      this.firestore.doc('User/'+data[0].id).update(body);
     })
     
@@ -82,15 +87,7 @@ export class ApiService {
           points: e.payload.doc.data()['points']
         }
       })
-     /*  console.log("points dikirim",body.points)
-      console.log("points",data[0].points)
-      let current = parseInt(body.points)
-      let update = parseInt(data[0].points)
-      let sum = current + update
-      console.log("sum points",sum)
-      let model = {
-        points: sum
-      } */
+  
 
      this.firestore.doc('User/'+data[0].id).update(body);
     })
@@ -102,5 +99,9 @@ export class ApiService {
   
   createReward(record){
     return this.firestore.collection('Rewards').add(record);
+  }
+
+  updateReward(rewardref,body){
+    return this.firestore.doc('Rewards/'+rewardref).update(body);
   }
 }

@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'edit-profile', loadChildren: './edit-profile/edit-profile.module#EditProfilePageModule' },
   { path: 'admin/voucher', loadChildren: './admin/voucher/voucher.module#VoucherPageModule' },
   { path: 'admin/voucher/create', loadChildren: './admin/voucher/create/create.module#CreatePageModule' },
+  { path: 'admin/voucher/edit/:id', loadChildren: './admin/voucher/edit/edit.module#EditPageModule' },
   /* { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' }, */

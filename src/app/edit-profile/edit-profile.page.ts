@@ -8,7 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoadingService } from '../shared/service/loading.service';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { tap, finalize } from 'rxjs/operators';
 @Component({
@@ -45,6 +45,7 @@ export class EditProfilePage implements OnInit {
     //Status check 
     isUploading:boolean;
     isUploaded:boolean;
+    subs: Subscription;
 
 
   constructor(private storage: AngularFireStorage,
@@ -103,7 +104,7 @@ export class EditProfilePage implements OnInit {
         console.log("asdsda")
         this.UploadedFileURL = fileRef.getDownloadURL();
         console.log("asdsda",this.UploadedFileURL)
-        this.UploadedFileURL.subscribe(resp=>{
+        this.subs = this.UploadedFileURL.subscribe(resp=>{
          /*  this.addImagetoDB({
             name: file.name,
             filepath: resp,
@@ -117,19 +118,35 @@ export class EditProfilePage implements OnInit {
           this.api.update_image(body,this.curUser);
         
           this.loading.dismiss()
-          this.getData()
+          
         },error=>{
           console.error(error);
         this.loading.dismiss()
         })
+        
+    
       })
+      
     )
+
+    if(this.subs){
+      this.subs.unsubscribe();
+     // this.getData()
+    }
+
     
   }
 
   save(){
     this.loading.present();
-    let body = this.fg.value
+    let body = this.fg.value;
+
+     this.fAuth.auth.currentUser.updateEmail(this.fg.value.email).then(res =>{
+      console.log("update",res)
+      this.loading.presentToast("profile saved")
+
+    })
+
     this.api.update_user(this.userId,body).then(()=>{
       this.loading.dismiss()
       this.router.navigate(['home/tabs/tab2'])
@@ -140,7 +157,9 @@ export class EditProfilePage implements OnInit {
 
   initForm(){
     this.fg = new FormGroup({
-      name: new FormControl(this.user[0].name,Validators.required)
+      name: new FormControl(this.user[0].name,Validators.required),
+      email: new FormControl(this.user[0].email,Validators.required),
+      
     })
   }
 

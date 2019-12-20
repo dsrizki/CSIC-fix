@@ -15,7 +15,11 @@ export class DetailPage implements OnInit {
   detailReward = [];
   uid;
   user: any;
+  uidRef;
   price;
+  qty;
+  rewardref;
+  curDate = new Date();
   constructor(public toast:ToastService,public alertController: AlertController,public loading:LoadingService,private api: ApiService, private activatedRoute: ActivatedRoute) {
     this.uid = localStorage.getItem("curUser")
   }
@@ -41,6 +45,8 @@ export class DetailPage implements OnInit {
           
           let a = this.detailReward[0];
           this.detailReward = a;
+          this.qty = a.qty
+          this.rewardref = a.id
           this.price = a.point_price
           console.log("this point price",this.price)
           // console.log();
@@ -53,12 +59,16 @@ export class DetailPage implements OnInit {
     this.api.read_userId(this.uid).subscribe(res =>{
       this.user = res.map(e => {
         return {
-          points: e.payload.doc.data()['points']
+          id: e.payload.doc.id,
+          points: e.payload.doc.data()['points'],
         }
       });
 
-      let a = this.user[0];
+      let a = this.user[0].points;
+      let b = this.user[0].id;
+      this.uidRef = b;
       this.user = a;
+      console.log("refid",b)
       console.log("user a points",a)
     })
 
@@ -96,8 +106,14 @@ export class DetailPage implements OnInit {
     
     
 
-    let current = parseInt(this.user.points)
+    let current = parseInt(this.user)
     let price = parseInt(this.price)
+
+    let qty = parseInt(this.qty)
+
+    console.log("current qty",qty)
+
+    
 
     if(current < price){
       this.loading.dismiss()
@@ -106,12 +122,29 @@ export class DetailPage implements OnInit {
     }
 
     let transact = current - price;
+    let minus = qty - 1;
 
     let body = {
-      points: transact
+      points: transact,
     }
 
     this.api.update_point(body,this.uid)
+
+
+    let model = {
+      qty: minus
+    }
+
+    this.api.updateReward(this.rewardref,model).then(()=>{
+      console.log("update reward qty")
+    })
+
+    let history = {
+      type: "purchase",
+      date: this.curDate,
+      points: price
+    }
+    this.api.create_history(this.uidRef,history);
     this.loading.dismiss()
     
   }

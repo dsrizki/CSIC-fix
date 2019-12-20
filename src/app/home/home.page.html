@@ -43,7 +43,7 @@
     <ion-grid>
        <ion-row justify-content-center>
          <ion-col size="11">
-             <div class="card-float">
+            <!--  <div class="card-float">
                <ion-grid>
                  <ion-row justify-content-center class="mt-20">
                    <ion-col text-center routerLink="/home/tabs/tab2"><img class="w-50" src="../../assets/icon/user.svg" alt="">
@@ -60,26 +60,34 @@
                   </ion-col>
                  </ion-row>
                </ion-grid>
-             </div>
+             </div> -->
            </ion-col>
          </ion-row>
     </ion-grid>
 
-    <ion-grid padding>
+    <ion-grid padding class="bg-grey">
       <ion-row>
         <ion-col>
           <ion-text color="dark" class="bold head-text">
-            Leaderboard
+            Leaderboard Points
           </ion-text>
         </ion-col>
       </ion-row>
       <ion-list>
-     <ion-item *ngFor="let a of allUser">
-       {{a.name}}
+     <ion-item *ngFor="let a of allUser;let idx = index">
+        <ion-label slot="start">{{idx+1}}.{{a.name}}</ion-label>
+        <ion-label slot="end">{{a.points}}</ion-label>
       </ion-item>
+      
          
       </ion-list>
     </ion-grid>
+
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+      <ion-fab-button color="light" routerLink="/qrcode">
+        <ion-icon name="qr-scanner"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   
      
    </ion-content>

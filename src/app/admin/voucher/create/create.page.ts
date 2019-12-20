@@ -6,6 +6,7 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { Observable } from 'rxjs';
 import { tap, finalize } from 'rxjs/operators';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -36,6 +37,7 @@ export class CreatePage implements OnInit {
     private database: AngularFireDatabase,
     private api: ApiService,
     private loading: LoadingService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -121,11 +123,16 @@ export class CreatePage implements OnInit {
   async createReward(){
 
     this.loading.present();
-    this.loading.dismiss();
+    
     let reward = this.database.createPushId()
     this.fgCreateReward.addControl('reward_id',new FormControl(reward,Validators.required));
     let body = this.fgCreateReward.value;
-    this.api.createReward(body);
+    this.api.createReward(body).then(()=>{
+
+      this.loading.dismiss();
+      this.loading.presentToast('Reward Created')
+      this.router.navigate(['scan'])
+    })
   }
 
 }

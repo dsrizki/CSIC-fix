@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+   <ion-buttons slot="start">
+     <ion-back-button></ion-back-button>
+     <ion-title>Edit Rewards</ion-title>
+   </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="fg" *ngIf="fg">
+    <ion-item>
+      <ion-label position="floating">Nama</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input formControlName="description" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Point Price</ion-label>
+      <ion-input formControlName="point_price" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Qty</ion-label>
+      <ion-input formControlName="qty" type="number"></ion-input>
+    </ion-item>
+    <ion-button expand="full" [disabled]="fg.invalid" (click)="update()">
+      Update
+    </ion-button>
+  </form>
+
+</ion-content>

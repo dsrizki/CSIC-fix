@@ -35,7 +35,14 @@ export class HomePage {
         };
       })  
       console.log("alluser",this.allUser)
+      this.allUser.sort((a, b) => {
+       if (a.points > b.points) return -1;
+       if (a.points < b.points) return 1;
+      })
+      console.log("leaderboard",this.allUser)
     })
+
+
     
   }
 
@@ -61,8 +68,6 @@ export class HomePage {
     
    })
 
-  
-   
   }
 
 }

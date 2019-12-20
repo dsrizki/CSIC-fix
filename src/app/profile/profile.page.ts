@@ -56,6 +56,8 @@ export class ProfilePage implements OnInit {
   userId: any;
   fg:FormGroup
   imgPreview;
+  uidRef;
+  history: any;
 
   constructor(private storage: AngularFireStorage,
     private fileChooser: FileChooser,
@@ -71,85 +73,67 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
+    this.getUid()
     this.getData()
 
+
   }
 
-  uploadFile(event: FileList) {
-    
- 
-    // The File object
-    const file = event.item(0)
- 
-    // Validation for Images Only
-    if (file.type.split('/')[0] !== 'image') { 
-     console.error('unsupported file type :( ')
-     return;
-    }
- 
-    this.isUploading = true;
-    this.isUploaded = false;
- 
- 
-    this.fileName = file.name;
- 
-    // The storage path
-    const path = `daurStorage/${new Date().getTime()}_${file.name}`;
- 
-    // Totally optional metadata
-    const customMetadata = { app: 'Daur App image' };
- 
-    //File reference
-    const fileRef = this.storage.ref(path);
- 
-    // The main task
-    this.task = this.storage.upload(path, file, { customMetadata });
- 
-    // Get file progress percentage
-    this.percentage = this.task.percentageChanges();
-    this.snapshot = this.task.snapshotChanges().pipe(
-      
-      finalize(() => {
-        // Get uploaded file storage path
-        this.UploadedFileURL = fileRef.getDownloadURL();
-        
-        this.UploadedFileURL.subscribe(resp=>{
-         /*  this.addImagetoDB({
-            name: file.name,
-            filepath: resp,
-            size: this.fileSize
-          }); */
+  ionViewDidEnter(){
 
-          let body = {
-            image: resp
-          }
-
-          this.api.update_image(body,this.curUser);
-          this.isUploading = false;
-          this.isUploaded = true;
-          this.getData()
-        },error=>{
-          console.error(error);
-        })
-      }),
-      tap(snap => {
-          this.fileSize = snap.totalBytes;
-      })
-    )
-    
-  }
+    if(this.uidRef){
+      this.getHistory()
   
-
-/*   browseImage(){
-    this.fileChooser.open()
-  .then(
-    uri => {
-      this.imgPreview = uri;
-      console.log(uri)
     }
-    )
-  .catch(e => console.log(e));
-  } */
+
+  }
+
+  getHistory(){
+
+  
+      this.api.read_history(this.uidRef).subscribe(res => {
+       
+        this.history = res.map(e => {
+          return {
+            type: e.payload.doc.data()['type'],
+            points: e.payload.doc.data()['points'],
+            date: e.payload.doc.data()['date']
+          }
+        })
+        console.log("history",this.history)
+        this.history.sort((a, b) => {
+          if (a.date > b.date) return -1;
+          if (a.date < b.date) return 1;
+         })
+
+      })
+  
+    
+    
+  }
+
+  getUid(){
+    this.api.read_userId(this.curUser).subscribe(res =>{
+      this.user = res.map(e => {
+        return {
+          id: e.payload.doc.id,
+        
+        }
+      });
+
+     
+      let b = this.user[0].id;
+      this.uidRef = b;
+     // this.user = a;
+      console.log("refid",b)
+      this.getHistory();
+      
+    })
+
+  }
+
+ 
+
 
   initForm(){
     this.fg = new FormGroup({

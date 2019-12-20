@@ -10,7 +10,7 @@
 
 <ion-content>
 
-<ion-grid>
+<ion-grid *ngIf="detailReward">
     <ion-row class="ion-justify-content-center mr-3">
       <ion-col class="ion-text-center">
         <img [src]="detailReward.image" class="w-50" alt="">
@@ -20,7 +20,7 @@
     <ion-row class="mr-3">
       <ion-col>
         <ion-text class="head-text bold">{{detailReward.name}}</ion-text><br>
-        <ion-text color="dark" class="sub-text">Tersedia 10pcs</ion-text>
+        <ion-text color="dark" class="sub-text">Tersedia {{detailReward.qty}}pcs</ion-text>
       </ion-col>
       <ion-col text-right>
         <ion-text color="primary" class="sub-text">{{detailReward.point_price}} leaf</ion-text>
@@ -29,7 +29,7 @@
   
   </ion-grid>
   <ion-item-divider>
-          
+         
   </ion-item-divider>
   
   <ion-grid>
@@ -51,7 +51,7 @@
               
           </ion-list>
   
-          <ion-button expand="full" (click)="redeem()">Redeem</ion-button>
+          <ion-button expand="full" (click)="redeem()" [disabled]="detailReward.qty < 1">Redeem</ion-button>
               
           
         </ion-col>
